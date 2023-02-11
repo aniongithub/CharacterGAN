@@ -1,0 +1,23 @@
+{
+	"name": "dev",
+	"dockerFile": "dev.Dockerfile",
+	"context": ".",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python"
+			]
+		}
+	},
+	"initializeCommand": "xhost +SI:localuser:root || true",
+	"updateContentCommand": "${containerWorkspaceFolder}/.devcontainer/updateContent.sh",
+	"runArgs": [
+		"--privileged",
+		"-e", "DISPLAY=${env:DISPLAY}",
+		"-v", "/tmp/.X11-unix:/tmp/.X11-unix",
+		"--gpus", "all",
+		"--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined",
+		"--network", "host",
+		"--ipc=host"
+	]
+}
